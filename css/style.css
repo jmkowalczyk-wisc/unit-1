@@ -1,0 +1,13 @@
+/* Stylesheet by Joseph Kowalczyk, 2026 */
+h1 {
+    font-size: 50pt
+}
+
+.myClass{
+    text-decoration: underline;
+}
+
+#thirdLine{
+    text-align: center;
+    text-decoration: none;
+}
