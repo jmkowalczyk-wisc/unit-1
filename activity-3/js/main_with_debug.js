@@ -30,21 +30,21 @@ function citiesTable(){
 	// Append the table to the div "#mydiv". In order for this to work, there must be a div with id "mydiv" in the HTML file.
 	document.querySelector("#mydiv").appendChild(table);
 
-	// Call the functions to add columns and events. They need to be called here to be in the same scope as cityPop.
+	// Call the functions to add columns and events. They need to be called inside citiesTable() to be in the same scope as cityPop.
 	addColumns(cityPop);
 	addEvents();
 };
 
 // Function to add a City Size column
 function addColumns(cityPop){
-	// Select each table row and add a new cell to the end for City Size
+	// Select each table row tag and add new text to the end for City Size
 	document.querySelectorAll("tr").forEach(function(row, i){
-		// i is the row index, add a header if i = 0, otherwise continue to determine city size
+		// i is iterated for each row, add a header if i = 0, otherwise continue to determine city size
 		if (i == 0){
 			row.insertAdjacentHTML('beforeend', '<th>City Size</th>');
 		} else {
 			// Initialize citySize variable, then set its value based on each object's population value
-			// index i-1 is used to match the cityPop array, since we use 0 in the forEach loop for the header row
+			// index i-1 is used to match the cityPop array, since we use i = 0 in the forEach loop for the header row
 			var citySize;
 			if (cityPop[i-1].population < 100000){
 				citySize = 'Small';
