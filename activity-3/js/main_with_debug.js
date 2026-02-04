@@ -27,8 +27,11 @@ function citiesTable(){
 		table.insertAdjacentHTML('beforeend', rowHtml);
 	});
 
-	// Append the table to the div "#mydiv". In order for this to work, there must be a div with id "mydiv" in the HTML file.
-	document.querySelector("#mydiv").appendChild(table);
+	// Adds a div with class "tableDiv" to the html body to contain the table
+	document.body.insertAdjacentHTML('afterbegin', '<div id="table"></div>');
+
+	// Append the table to the div "#table". In order for this to work, there must be a div with id "table" in the HTML file.
+	document.querySelector("#table").appendChild(table);
 
 	// Call the functions to add columns and events. They need to be called inside citiesTable() to be in the same scope as cityPop.
 	addColumns(cityPop);
