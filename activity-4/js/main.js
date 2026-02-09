@@ -1,7 +1,7 @@
 // Initialize function, called later when the document object model loads
 function initialize(){
 	citiesTable();
-	ajaxGeoJSON();
+	debugAjax();
 };
 
 // Function to create table of cities
@@ -30,9 +30,6 @@ function citiesTable(){
 
 	// Adds a div with class "tableDiv" to the html body to contain the table
 	document.body.insertAdjacentHTML('beforeend', '<div id="table"></div>');
-
-	// Activity 4 - Adding a div to contain the GeoJSON data
-	document.body.insertAdjacentHTML('beforeend', '<div id="a4geojson"></div>');
 
 	// Append the table to the div "#table". In order for this to work, there must be a div with id "table" in the HTML file.
 	document.querySelector("#table").appendChild(table);
@@ -94,27 +91,25 @@ function addEvents() {
 	document.querySelector("table").addEventListener("click", clickme)
 };
 
-	// Start Activity 4 - Debugging AJAX
-function ajaxGeoJSON() {
-	function debugCallback(response){
-		document.querySelector("#a4geojson").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData))
-	};
+// Start Activity 4 - Debugging AJAX
 
-	function debugAjax(){
-		
-		var myData;
-		
-		fetch("data/MegaCities.geojson")
-			.then(function(response){
-				debugCallback(response);
-			})
+function debugCallback(a4Data){
+	// Adds data from argument a4Data to the div with id "json". This div is added early on in the debugAjax() function.
+	document.querySelector("#json").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(a4Data))
+};
 
-		document.querySelector("#a4geojson").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + JSON.stringify(myData))
-	};
-
-	document.querySelector("#a4geojson").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData))
-}
-
+function debugAjax(){
+	// Adds a div with class "json" to the html body to contain the json data
+	document.body.insertAdjacentHTML('beforeend', '<div id="json"></div>');
+	
+	fetch("data/MegaCities.geojson") // Retrieves data from MegaCities.geojson
+		.then(function(response){ // Takes data from fetch(), returns as .json
+			return response.json()
+		})
+		.then(function(a4Data){ // Takes .json from previous then(), then passes it to debugCallback()
+			debugCallback(a4Data);
+		});
+};
 
 // Call the initialize function when the document loads
 document.addEventListener('DOMContentLoaded', initialize);
